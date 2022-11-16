@@ -1,1 +1,1 @@
-# kn-tf-aks-argocd
+# kn-tf-eks-argocd
