@@ -1,4 +1,4 @@
-local {
+locals {
     cluster_name = format("%s-argocd", local.general_prefix)
 }
 
