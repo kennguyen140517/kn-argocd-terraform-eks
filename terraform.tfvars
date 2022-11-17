@@ -23,4 +23,6 @@ tags = {
     "pl-code": "1000002"
 }
 
-vpc_cidr = "10.34.0.0/16"
+vpc_cidr                = "10.34.0.0/16"
+subnet_prefix_extension = 4
+zone_offset             = 8

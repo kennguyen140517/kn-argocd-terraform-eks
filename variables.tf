@@ -35,6 +35,7 @@ variable "number_of_az" {
 variable "cluster_version" {
   description = "EKS Kubernetes cluster version"
   type        = string
+  default = "1.24"
 }
 
 variable "create_eks" {
