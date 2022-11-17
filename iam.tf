@@ -1,5 +1,5 @@
-resource "aws_iam_role" "kn_argocd_lab_eks_iam_role" {
-  name = "kn-argocd-lab-eks-iam-role"
+resource "aws_iam_role" "eks_iam_role" {
+  name = format("%s-eks-iam-role", local.general_prefix)
   path = "/"
   assume_role_policy = <<EOF
 {
