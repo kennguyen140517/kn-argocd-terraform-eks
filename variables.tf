@@ -18,8 +18,12 @@ variable "env_prefix" {
 }
 
 variable "app_prefix" {
-  description = "List of allowed AWSA account IDs to prevent yopu from mistakenly using an incorrect one (and potentially end up destroying a live environment)."
+  description = "Application prefix for all AWS resources"
   type        = list(any)
+}
+
+variable "allowed_account_ids" {
+  description = "List of allowed AWSA account IDs to prevent yopu from mistakenly using an incorrect one (and potentially end up destroying a live environment)."
 }
 
 variable "number_of_az" {
