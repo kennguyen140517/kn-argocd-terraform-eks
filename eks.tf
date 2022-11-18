@@ -90,9 +90,6 @@ module "cluster" {
   tags = merge({
       "Name" = local.cluster_name
   }, var.tags)
-
-  write_kubeconfig   = true
-  config_output_path = "./"
 }
 
 # set spot fleet Autoscaling policy
