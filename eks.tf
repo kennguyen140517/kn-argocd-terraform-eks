@@ -6,6 +6,9 @@ module "cluster" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 18.0"
 
+  create = var.create_eks
+  enable_irsa = var.enable_irsa
+
   cluster_name    = local.cluster_name
   cluster_version = var.cluster_version
 
