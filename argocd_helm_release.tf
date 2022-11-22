@@ -6,6 +6,7 @@ resource "helm_release" "argocd" {
   version           = "5.14.1"
   namespace         = "argocd"
   create_namespace  = true
+  cleanup_on_fail   = true
 
   values = [
     file("argocd/application.yml")
