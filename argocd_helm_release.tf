@@ -1,23 +1,23 @@
-resource "helm_release" "argocd" {
-  name = format("%s", local.general_prefix)
+# resource "helm_release" "argocd" {
+#   name = format("%s", local.general_prefix)
 
-  repository        = "https://argoproj.github.io/argo-helm"
-  chart             = "argo-cd"
-  version           = "5.14.1"
-  namespace         = "argocd"
-  create_namespace  = true
-  cleanup_on_fail   = true
+#   repository        = "https://argoproj.github.io/argo-helm"
+#   chart             = "argo-cd"
+#   version           = "5.14.1"
+#   namespace         = "argocd"
+#   create_namespace  = true
+#   cleanup_on_fail   = true
 
-  values = [
-    file("argocd/application.yml")
-  ]
+#   values = [
+#     file("argocd/application.yml")
+#   ]
 
-  set {
-    name  = "server.service.type"
-    value = "LoadBalancer"
-  }
+#   set {
+#     name  = "server.service.type"
+#     value = "LoadBalancer"
+#   }
 
-  depends_on = [
-    module.cluster
-  ]
-}
+#   depends_on = [
+#     module.cluster
+#   ]
+# }
