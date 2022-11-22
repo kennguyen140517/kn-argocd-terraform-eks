@@ -12,6 +12,11 @@ resource "helm_release" "argocd" {
     file("argocd/application.yml")
   ]
 
+  set {
+    name  = "server.service.type"
+    value = "LoadBalancer"
+  }
+
   depends_on = [
     module.cluster
   ]
