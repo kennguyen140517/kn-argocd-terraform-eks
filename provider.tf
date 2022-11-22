@@ -17,9 +17,9 @@ provider "aws" {
 # data "aws_eks_cluster" "cluster" {
 #   name = local.cluster_name
 # }
-# data "aws_eks_cluster_auth" "cluster" {
-#   name = local.cluster_name
-# }
+data "aws_eks_cluster_auth" "cluster" {
+  name = local.cluster_name
+}
 
 # # Get EKS authentication for being able to manage k8s objects from terraform
 # provider "kubernetes" {
@@ -39,14 +39,14 @@ provider "aws" {
 provider "kubernetes" {
   host                   = module.cluster.cluster_endpoint
   cluster_ca_certificate = base64decode(module.cluster.cluster_certificate_authority_data)
-  token                  = module.cluster.token
+  token                  = data.aws_eks_cluster_auth.cluster.token
 }
 
 provider "helm" {
   kubernetes {
     host                   = module.cluster.cluster_endpoint
     cluster_ca_certificate = base64decode(module.cluster.cluster_certificate_authority_data)
-    token                  = module.cluster.token
+    token                  = data.aws_eks_cluster_auth.cluster.token
   }
 }
 
