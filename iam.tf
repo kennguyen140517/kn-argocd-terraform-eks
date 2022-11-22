@@ -13,6 +13,10 @@ module "iam_eks-alb-controller-iam-role-for-service-accounts-eks" {
       namespace_service_accounts = ["kube-system:aws-load-balancer-controller"]
     }
   }
+
+  depends_on = [
+    module.cluster
+  ]
 }
 
 # Create IAM role for External DNS, and attach to EKS OIDC
@@ -30,4 +34,8 @@ module "iam_eks-external-dns-iam-role-for-service-accounts-eks" {
       namespace_service_accounts = ["kube-system:external-dns"]
     }
   }
+
+  depends_on = [
+    module.cluster
+  ]
 }

@@ -1,5 +1,5 @@
 locals {
-    cluster_name = format("%s-argocd", local.general_prefix)
+    cluster_name = format("%s-cluster", local.general_prefix)
 }
 
 module "cluster" {

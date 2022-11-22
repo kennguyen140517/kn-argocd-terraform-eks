@@ -1,5 +1,5 @@
 resource "helm_release" "argocd" {
-  name = format("%s-argocd", local.general_prefix)
+  name = format("%s", local.general_prefix)
 
   repository        = "https://argoproj.github.io/argo-helm"
   chart             = "argo-cd"
@@ -10,5 +10,9 @@ resource "helm_release" "argocd" {
 
   values = [
     file("argocd/application.yml")
+  ]
+
+  depends_on = [
+    module.cluster
   ]
 }
