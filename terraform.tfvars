@@ -29,6 +29,8 @@ zone_offset             = 8
 
 autoscaling_average_cpu = 70
 
+enable_irsa = true
+
 eks_managed_node_groups = {
   "kn-lab-argocd-app" = {
     ami_type     = "AL2_x86_64"
