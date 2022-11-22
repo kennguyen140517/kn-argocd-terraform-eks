@@ -70,21 +70,21 @@ module "cluster" {
   # aws-auth configmap
   manage_aws_auth_configmap = false
 
-  aws_auth_roles = [
-    {
-      rolearn  = "arn:aws:iam::771330335857:role/ec2-ssm-full-access-role"
-      username = "ec2-ssm-full-access-role"
-      groups   = ["system:masters"]
-    },
-  ]
+#   aws_auth_roles = [
+#     {
+#       rolearn  = "arn:aws:iam::771330335857:role/ec2-ssm-full-access-role"
+#       username = "ec2-ssm-full-access-role"
+#       groups   = ["system:masters"]
+#     },
+#   ]
 
-  aws_auth_users = [
-    {
-      userarn  = "arn:aws:iam::771330335857:user/ken-01"
-      username = "ken-01"
-      groups   = ["system:masters"]
-    },
-  ]
+#   aws_auth_users = [
+#     {
+#       userarn  = "arn:aws:iam::771330335857:user/ken-01"
+#       username = "ken-01"
+#       groups   = ["system:masters"]
+#     },
+#   ]
 
   aws_auth_accounts = [
     "771330335857"
