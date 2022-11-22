@@ -36,8 +36,7 @@ eks_managed_node_groups = {
     max_size     = 2
     desired_size = 1
     instance_types = [
-      "t3.medium",
-      "t3.large"
+      "t3.medium"
     ]
     capacity_type = "ON_DEMAND"
     network_interfaces = [{
