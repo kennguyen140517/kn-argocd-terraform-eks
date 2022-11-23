@@ -15,9 +15,15 @@ provider "aws" {
 
 # Get EKS cluster info to configure Kubernetes and Helm providers
 data "aws_eks_cluster" "cluster" {
+  depends_on = [
+    module.cluster
+  ]
   name = local.cluster_name
 }
 data "aws_eks_cluster_auth" "cluster" {
+  depends_on = [
+    module.cluster
+  ]
   name = local.cluster_name
 }
 
