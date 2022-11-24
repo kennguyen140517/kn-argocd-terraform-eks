@@ -1,12 +1,54 @@
 locals {
-    cluster_name = format("%s-cluster", local.general_prefix)
+  cluster_name = format("%s-cluster", local.general_prefix)
+}
+
+resource "aws_security_group" "alb" {
+  lifecycle {
+    ignore_changes = [
+      ingress,
+      egress
+    ]
+  }
+
+  name   = "${local.general_prefix}-alb-sg"
+  vpc_id = var.vpc_id
+
+  ingress {
+    description      = "http"
+    from_port        = 80
+    to_port          = 80
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  ingress {
+    description      = "https"
+    from_port        = 443
+    to_port          = 443
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  tags = merge({
+    "Name" = "${local.general_prefix}-alb"
+  }, var.tags)
 }
 
 module "cluster" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 18.0"
 
-  create = var.create_eks
+  create      = var.create_eks
   enable_irsa = var.enable_irsa
 
   cluster_name    = local.cluster_name
@@ -25,8 +67,8 @@ module "cluster" {
     }
   }
 
-  vpc_id     = module.vpc.vpc_id
-  subnet_ids = module.vpc.private_subnets
+  vpc_id     = var.vpc_id
+  subnet_ids = var.subnet_ids
 
   # EKS Managed Node Group(s)
   eks_managed_node_groups = var.eks_managed_node_groups
@@ -67,31 +109,10 @@ module "cluster" {
     }
   }
 
-#   # aws-auth configmap
-#   manage_aws_auth_configmap = false
-
-#   aws_auth_roles = [
-#     {
-#       rolearn  = "arn:aws:iam::771330335857:role/ec2-ssm-full-access-role"
-#       username = "ec2-ssm-full-access-role"
-#       groups   = ["system:masters"]
-#     },
-#   ]
-
-#   aws_auth_users = [
-#     {
-#       userarn  = "arn:aws:iam::771330335857:user/ken-01"
-#       username = "ken-01"
-#       groups   = ["system:masters"]
-#     },
-#   ]
-
-  aws_auth_accounts = [
-    "771330335857"
-  ]
+  aws_auth_accounts = var.allowed_account_ids
 
   tags = merge({
-      "Name" = local.cluster_name
+    "Name" = local.cluster_name
   }, var.tags)
 }
 
