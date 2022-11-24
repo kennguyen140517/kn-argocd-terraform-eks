@@ -28,6 +28,11 @@ variable "number_of_az" {
   default     = 2
 }
 
+variable "allowed_account_ids" {
+  description = "List of allowed AWSA account IDs to prevent yopu from mistakenly using an incorrect one (and potentially end up destroying a live environment)."
+  type        = list(any)
+}
+
 variable "cluster_name" {
   description = "EKS Kubernetes cluster name"
   type        = string
