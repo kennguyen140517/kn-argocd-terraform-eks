@@ -62,6 +62,20 @@ module "ingress_nginx_controller" {
   tags = var.tags
 }
 
+module "cert_manager" {
+  source = "./modules/04-cert-manager"
+
+  region              = var.region
+  master_prefix       = var.master_prefix
+  env_prefix          = var.env_prefix
+  app_prefix          = var.app_prefix
+  allowed_account_ids = var.allowed_account_ids
+
+  cluster_name = module.main_eks.cluster_name
+
+  tags = var.tags
+}
+
 # module "apps" {
 #   source = "./modules/04-apps"
 
