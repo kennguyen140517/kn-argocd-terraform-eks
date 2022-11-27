@@ -9,6 +9,6 @@ resource "helm_release" "argocd" {
   cleanup_on_fail  = true
 
   values = [
-    file("argocd/application.yml")
+    file("argocd/values.yaml")
   ]
 }
