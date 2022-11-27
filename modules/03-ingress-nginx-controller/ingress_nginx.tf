@@ -7,7 +7,6 @@ resource "helm_release" "ingress_nginx" {
   namespace        = "ingress-nginx"
   create_namespace = true
   cleanup_on_fail  = true
-
   set {
     name  = "controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-type"
     value = "nlb"
@@ -16,6 +15,11 @@ resource "helm_release" "ingress_nginx" {
   set {
     name  = "controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-scheme"
     value = "internet-facing"
+  }
+
+  set {
+    name  = "controller.extraArgs.enable-ssl-passthrough"
+    value = ""
   }
 }
 
