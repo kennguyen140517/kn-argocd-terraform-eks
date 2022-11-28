@@ -182,7 +182,7 @@ configs:
 
     ## Server properties
     # -- Run server without TLS
-    server.insecure: true
+    server.insecure: false
     # -- Value for base href in index.html. Used if Argo CD is running behind reverse proxy under subpath different from /
     server.basehref: /
     # -- Used if Argo CD is running behind reverse proxy under subpath different from /
@@ -1561,21 +1561,23 @@ server:
 
   ingress:
     # -- Enable an ingress resource for the Argo CD server
-    enabled: false
+    enabled: true
     # -- Additional ingress annotations
-    annotations: {}
+    annotations:
+      # kubernetes.io/ingress.class: nginx
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/ssl-passthrough: "true"
     # -- Additional ingress labels
     labels: {}
     # -- Defines which ingress controller will implement the resource
-    ingressClassName: ""
+    ingressClassName: "nginx"
 
     # -- List of ingress hosts
     ## Argo Ingress.
     ## Hostnames must be provided if Ingress is enabled.
     ## Secrets must be manually created in the namespace
     hosts:
-      []
-      # - argocd.example.com
+      - argocd.kennguyen.live
 
     # -- List of ingress paths
     paths:
@@ -1606,7 +1608,7 @@ server:
       #     - argocd.example.com
 
     # -- Uses `server.service.servicePortHttps` instead `server.service.servicePortHttp`
-    https: false
+    https: true
 
   # dedicated ingress for gRPC as documented at
   # Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/

@@ -1,6 +1,6 @@
 # Apply the following command before this step
 # kubectl delete validatingwebhookconfigurations kn-lab-argocd-ingress-nginx-admission -n ingress-nginx
-
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -31,3 +31,26 @@ spec:
   - hosts:
     - argocd.kennguyen.live
     secretName: argocd-secret # do not change, this is provided by Argo CD
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kn-lab-argocd-argocd-server-ingress
+  namespace: argocd
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+spec:
+  rules:
+  - host: argocd.kennguyen.live
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: argocd-server
+            port:
+              name: https    

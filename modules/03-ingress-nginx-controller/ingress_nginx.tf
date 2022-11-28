@@ -7,6 +7,7 @@ resource "helm_release" "ingress_nginx" {
   namespace        = "ingress-nginx"
   create_namespace = true
   cleanup_on_fail  = true
+
   set {
     name  = "controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-type"
     value = "nlb"
@@ -22,7 +23,3 @@ resource "helm_release" "ingress_nginx" {
     value = ""
   }
 }
-
-# service.beta.kubernetes.io/aws-load-balancer-internal: "true"
-# service.beta.kubernetes.io/aws-load-balancer-scheme: internal
-# service.beta.kubernetes.io/aws-load-balancer-type: nlb
