@@ -1,3 +1,5 @@
+# kubectl delete ValidatingWebhookConfiguration kn-lab-argocd-ingress-nginx-admission -n ingress-nginx
+
 resource "helm_release" "argocd" {
   name = format("%s", local.general_prefix)
 
