@@ -84,16 +84,20 @@ module "ingress_nginx_controller" {
 #   tags = var.tags
 # }
 
-# module "argocd" {
-#   source = "./modules/05-argocd"
+module "argocd" {
+  source = "./modules/05-argocd"
 
-#   region              = var.region
-#   master_prefix       = var.master_prefix
-#   env_prefix          = var.env_prefix
-#   app_prefix          = var.app_prefix
-#   allowed_account_ids = var.allowed_account_ids
+  region              = var.region
+  master_prefix       = var.master_prefix
+  env_prefix          = var.env_prefix
+  app_prefix          = var.app_prefix
+  allowed_account_ids = var.allowed_account_ids
 
-#   cluster_name = module.main_eks.cluster_name
+  cluster_name = module.main_eks.cluster_name
 
-#   tags = var.tags
-# }
+  tags = var.tags
+
+  depends_on = [
+    module.ingress_nginx_controller
+  ]
+}
