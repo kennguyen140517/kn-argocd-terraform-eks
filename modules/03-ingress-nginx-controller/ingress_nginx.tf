@@ -1,3 +1,6 @@
+# Need to delete ValidatingWebhookConfiguration before installing helm charts
+# kubectl delete ValidatingWebhookConfiguration kn-lab-argocd-ingress-nginx-admission -n ingress-nginx
+
 resource "helm_release" "ingress_nginx" {
   name = format("%s-ingress-nginx", local.general_prefix)
 
