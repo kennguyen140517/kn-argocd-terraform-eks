@@ -138,6 +138,6 @@ module "argocd" {
   tags = var.tags
 
   depends_on = [
-    module.ingress_nginx_controller
+    module.sealed_secret
   ]
 }
