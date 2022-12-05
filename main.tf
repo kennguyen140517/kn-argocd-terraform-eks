@@ -107,7 +107,7 @@ module "kube_prometheus_stack" {
 }
 
 module "sealed_secret" {
-  source = "./modules/06-sealed-secret"
+  source = "./modules/06-sealed-secrets"
 
   region              = var.region
   master_prefix       = var.master_prefix
