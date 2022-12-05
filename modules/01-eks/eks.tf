@@ -75,7 +75,7 @@ module "cluster" {
 
   node_security_group_additional_rules = {
     # https://github.com/kubernetes-sigs/aws-load-balancer-controller/issues/2039#issuecomment-1099032289
-    ingress_allow_access_from_control_plane = {
+    ingress_allow_access_from_control_plane_9443 = {
       type                          = "ingress"
       protocol                      = "tcp"
       from_port                     = 9443
