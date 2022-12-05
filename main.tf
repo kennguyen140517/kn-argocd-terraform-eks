@@ -33,63 +33,45 @@ module "main_eks" {
   tags = var.tags
 }
 
-# module "aws_load_balancer_controller" {
-#   source = "./modules/02-aws-load-balancer-controller"
+module "aws_load_balancer_controller" {
+  source = "./modules/02-aws-load-balancer-controller"
 
-#   region              = var.region
-#   master_prefix       = var.master_prefix
-#   env_prefix          = var.env_prefix
-#   app_prefix          = var.app_prefix
-#   allowed_account_ids = var.allowed_account_ids
+  region              = var.region
+  master_prefix       = var.master_prefix
+  env_prefix          = var.env_prefix
+  app_prefix          = var.app_prefix
+  allowed_account_ids = var.allowed_account_ids
 
-#   cluster_name            = module.main_eks.cluster_name
-#   ingress_controller_name = "aws-load-balancer-controller"
+  cluster_name            = module.main_eks.cluster_name
+  ingress_controller_name = "aws-load-balancer-controller"
 
-#   tags = var.tags
+  tags = var.tags
 
-#   depends_on = [
-#     module.main_eks
-#   ]
-# }
+  depends_on = [
+    module.main_eks
+  ]
+}
 
-# module "ingress_nginx_controller" {
-#   source = "./modules/03-ingress-nginx-controller"
+module "ingress_nginx_controller" {
+  source = "./modules/03-ingress-nginx-controller"
 
-#   region              = var.region
-#   master_prefix       = var.master_prefix
-#   env_prefix          = var.env_prefix
-#   app_prefix          = var.app_prefix
-#   allowed_account_ids = var.allowed_account_ids
+  region              = var.region
+  master_prefix       = var.master_prefix
+  env_prefix          = var.env_prefix
+  app_prefix          = var.app_prefix
+  allowed_account_ids = var.allowed_account_ids
 
-#   cluster_name = module.main_eks.cluster_name
+  cluster_name = module.main_eks.cluster_name
 
-#   tags = var.tags
+  tags = var.tags
 
-#   depends_on = [
-#     module.aws_load_balancer_controller
-#   ]
-# }
+  depends_on = [
+    module.aws_load_balancer_controller
+  ]
+}
 
-# # module "cert_manager" {
-# #   source = "./modules/04-cert-manager"
-
-# #   region              = var.region
-# #   master_prefix       = var.master_prefix
-# #   env_prefix          = var.env_prefix
-# #   app_prefix          = var.app_prefix
-# #   allowed_account_ids = var.allowed_account_ids
-
-# #   cluster_name = module.main_eks.cluster_name
-
-# #   tags = var.tags
-
-# #   depends_on = [
-# #     module.ingress_nginx_controller
-# #   ]
-# # }
-
-# module "kube_prometheus_stack" {
-#   source = "./modules/05-kube-prometheus-stack"
+# module "cert_manager" {
+#   source = "./modules/04-cert-manager"
 
 #   region              = var.region
 #   master_prefix       = var.master_prefix
@@ -106,38 +88,56 @@ module "main_eks" {
 #   ]
 # }
 
-# module "sealed_secret" {
-#   source = "./modules/06-sealed-secrets"
+module "kube_prometheus_stack" {
+  source = "./modules/05-kube-prometheus-stack"
 
-#   region              = var.region
-#   master_prefix       = var.master_prefix
-#   env_prefix          = var.env_prefix
-#   app_prefix          = var.app_prefix
-#   allowed_account_ids = var.allowed_account_ids
+  region              = var.region
+  master_prefix       = var.master_prefix
+  env_prefix          = var.env_prefix
+  app_prefix          = var.app_prefix
+  allowed_account_ids = var.allowed_account_ids
 
-#   cluster_name = module.main_eks.cluster_name
+  cluster_name = module.main_eks.cluster_name
 
-#   tags = var.tags
+  tags = var.tags
 
-#   depends_on = [
-#     module.kube_prometheus_stack
-#   ]
-# }
+  depends_on = [
+    module.ingress_nginx_controller
+  ]
+}
 
-# module "argocd" {
-#   source = "./modules/07-argocd"
+module "sealed_secret" {
+  source = "./modules/06-sealed-secrets"
 
-#   region              = var.region
-#   master_prefix       = var.master_prefix
-#   env_prefix          = var.env_prefix
-#   app_prefix          = var.app_prefix
-#   allowed_account_ids = var.allowed_account_ids
+  region              = var.region
+  master_prefix       = var.master_prefix
+  env_prefix          = var.env_prefix
+  app_prefix          = var.app_prefix
+  allowed_account_ids = var.allowed_account_ids
 
-#   cluster_name = module.main_eks.cluster_name
+  cluster_name = module.main_eks.cluster_name
 
-#   tags = var.tags
+  tags = var.tags
 
-#   depends_on = [
-#     module.sealed_secret
-#   ]
-# }
+  depends_on = [
+    module.kube_prometheus_stack
+  ]
+}
+
+module "argocd" {
+  source = "./modules/07-argocd"
+
+  region              = var.region
+  master_prefix       = var.master_prefix
+  env_prefix          = var.env_prefix
+  app_prefix          = var.app_prefix
+  allowed_account_ids = var.allowed_account_ids
+
+  cluster_name = module.main_eks.cluster_name
+
+  tags = var.tags
+
+  depends_on = [
+    module.sealed_secret
+  ]
+}
