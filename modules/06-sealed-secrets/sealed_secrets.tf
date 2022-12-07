@@ -4,7 +4,7 @@ resource "helm_release" "sealed_secrets" {
   repository       = "https://bitnami-labs.github.io/sealed-secrets"
   chart            = "sealed-secrets"
   version          = "2.7.1"
-  namespace        = "sealed-secrets"
-  create_namespace = true
+  namespace        = "kube-system"
+  create_namespace = false
   cleanup_on_fail  = true
 }
