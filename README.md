@@ -1,1 +1,1 @@
-# kn-tf-eks-argocd
+# kn-argocd-terraform-eks
