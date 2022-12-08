@@ -45,5 +45,19 @@ eks_managed_node_groups = {
       delete_on_termination       = true
       associate_public_ip_address = true
     }]
+  },
+  "kn-lab-payment-app" = {
+    ami_type     = "AL2_x86_64"
+    min_size     = 1
+    max_size     = 2
+    desired_size = 1
+    instance_types = [
+      "t3.small"
+    ]
+    capacity_type = "ON_DEMAND"
+    network_interfaces = [{
+      delete_on_termination       = true
+      associate_public_ip_address = true
+    }]
   }
 }
