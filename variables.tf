@@ -76,3 +76,12 @@ variable "autoscaling_average_cpu" {
   description = "Average CPU threshold to autoscale EKS EC2 instances"
 }
 
+variable "list_ce_cost_allocation_tags" {
+  description = "List AWS CE cost allocation tags"
+  type = list(string)
+  
+  default = [ 
+    "application",
+    "application-id" 
+  ]
+}
